@@ -20,7 +20,7 @@ public class StockEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @ManyToMany(mappedBy = "stock_listed_on_platform")
+    @ManyToMany(mappedBy = "listedStocks")
     Set<TradingPlatformEntity> listedOn;
 
     @Column(name = "stock_symbol", length = 50)
