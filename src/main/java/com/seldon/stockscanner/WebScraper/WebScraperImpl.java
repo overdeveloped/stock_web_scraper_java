@@ -1,36 +1,34 @@
 package com.seldon.stockscanner.WebScraper;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import com.seldon.stockscanner.Pluss500.StockEntity;
+import com.seldon.stockscanner.Stocks.StockEntity;
 
 @Service
-public class WebScraperPlus500Impl implements WebScraperPlus500
+public class WebScraperImpl implements WebScraper
 {
     private int longestSymbol = 0;
 	private int longestName = 0;
 
+    // Plus500
+    // The idea being that there may be more platforms added in the future
     @Override
-    public List<StockEntity> getSupportedSymbols()
+    public Set<StockEntity> getPluss500SupportedSymbols()
     {
         String url = "https://www.plus500.com/en/instruments#indicesf";
 
-        List<StockEntity> results = new ArrayList<StockEntity>();
+        Set<StockEntity> results = new HashSet<StockEntity>();
         try
         {
             Document doc = Jsoup.connect(url).get();
-            Element accordionElement = doc.getElementsByClass("accordion").first();
-            Elements tableElements = accordionElement.getElementsByTag("table");
             Elements tableRows = doc.getElementsByTag("tr");
-
 
             tableRows.forEach(row ->
             {

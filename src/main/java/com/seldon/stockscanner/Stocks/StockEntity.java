@@ -1,5 +1,6 @@
-package com.seldon.stockscanner.Pluss500;
+package com.seldon.stockscanner.Stocks;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.seldon.stockscanner.TradingPlatform.TradingPlatformEntity;
@@ -21,7 +22,7 @@ public class StockEntity
     Long id;
 
     @ManyToMany(mappedBy = "listedStocks")
-    Set<TradingPlatformEntity> listedOn;
+    Set<TradingPlatformEntity> listedOn = new HashSet<>();
 
     @Column(name = "stock_symbol", length = 50)
     String stockSymbol;
@@ -52,4 +53,14 @@ public class StockEntity
     {
         this.stockSymbol = stockSymbol;
     }
+
+    public Set<TradingPlatformEntity> getListedOn() {
+        return listedOn;
+    }
+
+    public void setListedOn(Set<TradingPlatformEntity> listedOn) {
+        this.listedOn = listedOn;
+    }
+
+
 }
