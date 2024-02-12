@@ -18,7 +18,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "trading_platform_entity")
+@Table(name = "trading_platform")
 public class TradingPlatformEntity
 {
     public TradingPlatformEntity()
