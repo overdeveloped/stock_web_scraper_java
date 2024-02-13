@@ -4491,3 +4491,26 @@ java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a par
 2024-02-12 16:12:07,383 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
 2024-02-12 16:12:07,384 [INFO] org.springframework.web.servlet.DispatcherServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
 2024-02-12 16:12:07,385 [INFO] org.springframework.web.servlet.DispatcherServlet [http-nio-8080-exec-1] Completed initialization in 1 ms
+2024-02-12 20:20:05,152 [INFO] com.seldon.stockscanner.StockscannerApplication [main] Starting StockscannerApplication using Java 21.0.1 with PID 12924 (C:\Users\exper\OneDrive\Documents\Programming\Java\Seldon\stockscanner\target\classes started by exper in C:\Users\exper\OneDrive\Documents\Programming\Java\Seldon\stockscanner)
+2024-02-12 20:20:05,155 [INFO] com.seldon.stockscanner.StockscannerApplication [main] No active profile set, falling back to 1 default profile: "default"
+2024-02-12 20:20:06,040 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-12 20:20:06,143 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 91 ms. Found 2 JPA repository interfaces.
+2024-02-12 20:20:06,902 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2024-02-12 20:20:06,924 [INFO] org.apache.catalina.core.StandardService [main] Starting service [Tomcat]
+2024-02-12 20:20:06,925 [INFO] org.apache.catalina.core.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-02-12 20:20:07,039 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [main] Initializing Spring embedded WebApplicationContext
+2024-02-12 20:20:07,040 [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1827 ms
+2024-02-12 20:20:07,352 [INFO] org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-12 20:20:07,447 [INFO] org.hibernate.Version [main] HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-02-12 20:20:07,490 [INFO] org.hibernate.cache.internal.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2024-02-12 20:20:07,814 [INFO] org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-12 20:20:07,850 [INFO] com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2024-02-12 20:20:08,056 [INFO] com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3be80ece
+2024-02-12 20:20:08,059 [INFO] com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2024-02-12 20:20:08,121 [WARN] org.hibernate.orm.deprecation [main] HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-02-12 20:20:09,218 [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-12 20:20:09,494 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-12 20:20:09,844 [INFO] org.springframework.data.jpa.repository.query.QueryEnhancerFactory [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-02-12 20:20:10,607 [WARN] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-12 20:20:11,184 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port 8080 (http) with context path ''
+2024-02-12 20:20:11,197 [INFO] com.seldon.stockscanner.StockscannerApplication [main] Started StockscannerApplication in 6.54 seconds (process running for 7.031)

@@ -3,6 +3,7 @@ package com.seldon.stockscanner.Stocks;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.seldon.stockscanner.TradingPlatform.TradingPlatformEntity;
 
 import jakarta.persistence.Column;
@@ -14,7 +15,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "stock_entity")
+@Table(name = "stock")
 public class StockEntity
 {
     @Id
@@ -22,6 +23,7 @@ public class StockEntity
     Long id;
 
     @ManyToMany(mappedBy = "listedStocks")
+    @JsonIgnoreProperties("listedStocks")
     Set<TradingPlatformEntity> listedOn = new HashSet<>();
 
     @Column(name = "stock_symbol", length = 50)

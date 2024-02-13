@@ -3,6 +3,7 @@ package com.seldon.stockscanner.TradingPlatform;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.seldon.stockscanner.Stocks.StockEntity;
 
 import jakarta.persistence.CascadeType;
@@ -40,6 +41,7 @@ public class TradingPlatformEntity
         joinColumns = @JoinColumn(name = "platform_id"),
         inverseJoinColumns = @JoinColumn(name = "stock_id")
     )
+    @JsonIgnoreProperties("listedOn")
     Set<StockEntity> listedStocks = new HashSet<>();
 
     @Column(name = "platform_name")

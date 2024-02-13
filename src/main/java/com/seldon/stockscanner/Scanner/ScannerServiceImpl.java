@@ -1,12 +1,11 @@
 package com.seldon.stockscanner.Scanner;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties.Websocket;
 import org.springframework.stereotype.Service;
 
 import com.seldon.stockscanner.Company.CompanyDTO;
@@ -41,22 +40,18 @@ public class ScannerServiceImpl implements ScannerService
     @Transactional
     public Set<StockEntity> retrieveListedStocks()
     {
+        // DOTO: SORT THIS OUT
         Set<StockEntity> results = this.webScraper.getPluss500SupportedSymbols();
         
         resetPlatformsAndStocks();
-
+        saveStocksWithPlatform(results);
+        
         // Check that the Plus500 entity exists in the database
         if(!this.tradingPlatformRepo.existsByName("Plus500"))
         {
             System.out.println("CREATE PLUS500 ENTRY");
-
-            // DOTO: ADD MANY TO MANY LINK BETWEEN PLATFORM AND STOCKS
-            // saveStocksWithPlatform(results);
-
-
-
-
-
+            
+            
         }
         else
         {
@@ -83,7 +78,7 @@ public class ScannerServiceImpl implements ScannerService
             
             if (count == 10)
             {
-                break;
+                // break;
             }
             count ++;
         }
@@ -126,7 +121,17 @@ public class ScannerServiceImpl implements ScannerService
     @Override
     public Set<CompanyDTO> getMegaCompanies()
     {
-        return webScraper.getMegaCompanies();
+        Set<CompanyDTO> allResults = webScraper.getMegaCompanies();
+
+        return filterByPlatform(allResults);
+    }
+
+
+    private Set<CompanyDTO> filterByPlatform(Set<CompanyDTO> allResults)
+    {
+        Set<StockEntity> stocksOnPlatform = tradingPlatformRepo.findByPlatformName("Plus500");
+
+        return new HashSet<CompanyDTO>();
     }
 
 }

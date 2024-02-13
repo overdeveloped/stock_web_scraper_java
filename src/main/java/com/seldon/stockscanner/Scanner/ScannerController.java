@@ -7,7 +7,6 @@ import com.seldon.stockscanner.Stocks.StockEntity;
 
 import java.util.Set;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
