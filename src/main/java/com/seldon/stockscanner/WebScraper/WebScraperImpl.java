@@ -6,9 +6,11 @@ import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import com.seldon.stockscanner.Company.CompanyDTO;
 import com.seldon.stockscanner.Stocks.StockEntity;
 
 @Service
@@ -16,6 +18,7 @@ public class WebScraperImpl implements WebScraper
 {
     private int longestSymbol = 0;
 	private int longestName = 0;
+    private String rootUrl = "https://finviz.com/screener.ashx?v=111";
 
     // Plus500
     // The idea being that there may be more platforms added in the future
@@ -83,5 +86,89 @@ public class WebScraperImpl implements WebScraper
 
         return results;
     }
-    
+
+    @Override
+    public CompanyDTO getDummyCompany()
+    {
+        CompanyDTO dummyComp = new CompanyDTO(
+            "ticker",
+            "company",
+            "sector",
+            "industry",
+            "country",
+            "marketCap",
+            "pe",
+            "price",
+            "change",
+            "volume"
+        );
+
+        return dummyComp;
+    }
+
+    @Override
+    public Set<CompanyDTO> getMegaCompanies()
+    {
+        Set<CompanyDTO> results = new HashSet<CompanyDTO>();
+        StringBuilder sb = new StringBuilder();
+        
+        String fullUrl = sb.append(rootUrl).append("&f=cap_mega").toString();
+
+        try
+        {
+            Document doc = Jsoup.connect(fullUrl).get();
+            Element paginator = doc.getElementById("screener_pagination");
+            Elements pages = paginator.getElementsByTag("a");
+
+            int pageScaler = 1;
+
+            // Save the number of pages so that we can iterate through them all
+            if (pages.size() > 1)
+            {
+                pageScaler = pages.size() - 1;
+            }
+
+            for (int index = 1; index < 20 * pageScaler; index+=20)
+            {
+                String pageUrl = String.format("%s&r=%s", fullUrl, Integer.toString(index));
+                System.out.println(pageUrl);
+                doc = Jsoup.connect(pageUrl).get();
+
+                Element resultsTable = doc.getElementsByClass("styled-table-new").getFirst();
+                Elements tableRows = resultsTable.getElementsByTag("tr");
+                
+                for (Element row : tableRows)
+                {
+                    Elements rowData = row.getElementsByTag("td");
+
+                    if (rowData.size() > 0)
+                    {
+                        CompanyDTO company = new CompanyDTO.CompanyBuilder()
+                        .ticker(rowData.get(1).text())
+                        .company(rowData.get(2).text())
+                        .sector(rowData.get(3).text())
+                        .industry(rowData.get(4).text())
+                        .country(rowData.get(5).text())
+                        .marketCap(rowData.get(6).text())
+                        .PE(rowData.get(7).text())
+                        .price(rowData.get(8).text())
+                        .change(rowData.get(9).text())
+                        .volume(rowData.get(10).text())
+                        .build();
+                        
+                        System.out.println(row.text());
+                        System.out.println();
+                        
+                        results.add(company);
+                    }
+                }
+            }
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return results;
+    }
 }

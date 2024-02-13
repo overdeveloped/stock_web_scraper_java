@@ -3,10 +3,13 @@ package com.seldon.stockscanner.Scanner;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties.Websocket;
 import org.springframework.stereotype.Service;
 
+import com.seldon.stockscanner.Company.CompanyDTO;
 import com.seldon.stockscanner.Stocks.StockEntity;
 import com.seldon.stockscanner.Stocks.StockRepo;
 import com.seldon.stockscanner.TradingPlatform.TradingPlatformEntity;
@@ -22,14 +25,14 @@ public class ScannerServiceImpl implements ScannerService
     Logger logger = LoggerFactory.getLogger(ScannerServiceImpl.class);
     
     private EntityManager em;
-    private WebScraper webScraperPlus500;
+    private WebScraper webScraper;
     private StockRepo stockRepo;
     private TradingPlatformRepo tradingPlatformRepo;
 
     public ScannerServiceImpl(EntityManager em, WebScraper webScraperPlus500, StockRepo stockRepo, TradingPlatformRepo tradingPlatformRepo)
     {
         this.em = em;
-        this.webScraperPlus500 = webScraperPlus500;
+        this.webScraper = webScraperPlus500;
         this.stockRepo = stockRepo;
         this.tradingPlatformRepo = tradingPlatformRepo;
     }
@@ -38,7 +41,7 @@ public class ScannerServiceImpl implements ScannerService
     @Transactional
     public Set<StockEntity> retrieveListedStocks()
     {
-        Set<StockEntity> results = this.webScraperPlus500.getPluss500SupportedSymbols();
+        Set<StockEntity> results = this.webScraper.getPluss500SupportedSymbols();
         
         resetPlatformsAndStocks();
 
@@ -112,6 +115,18 @@ public class ScannerServiceImpl implements ScannerService
         tradingPlatformRepo.deleteAll();
 
         stockRepo.deleteAll();
+    }
+
+    @Override
+    public CompanyDTO retrieveDummyCompany()
+    {
+        return webScraper.getDummyCompany();
+    }
+
+    @Override
+    public Set<CompanyDTO> getMegaCompanies()
+    {
+        return webScraper.getMegaCompanies();
     }
 
 }
